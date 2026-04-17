@@ -1,14 +1,21 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+#![no_std]
+extern crate alloc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(feature = "std")]
+extern crate std;
+#[cfg(feature = "std")]
+use std::string::String;
+#[cfg(not(feature = "std"))]
+use core::error::Error as StdError;
+#[cfg(feature = "std")]
+use std::error::Error as StdError;
+
+pub struct Error {
+    msg: String,
+    context: Option<String>
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+pub type Result<T, E = Error> = core::result::Result<T, E>;
+pub trait Context<T> {
+    fn context(self) -> Result<T>;
 }
