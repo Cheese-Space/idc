@@ -3,14 +3,13 @@ extern crate alloc;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
-use alloc::boxed::Box;
 use alloc::string::ToString;
+#[cfg(feature = "std")]
+use std::string::ToString;
 #[cfg(feature = "std")]
 extern crate std;
 #[cfg(feature = "std")]
 use std::string::String;
-#[cfg(feature = "std")]
-use std::boxed::Box;
 #[cfg(not(feature = "std"))]
 use core::error::Error as StdError;
 #[cfg(feature = "std")]
