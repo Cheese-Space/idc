@@ -20,8 +20,8 @@ pub struct Error {
     msg: String,
     context: Option<String>
 }
-impl From<Box<dyn StdError>> for Error {
-    fn from(value: Box<dyn StdError>) -> Self {
+impl<E: StdError> From<E> for Error {
+    fn from(value: E) -> Self {
         Self {
             msg: value.to_string(),
             context: None
@@ -44,6 +44,15 @@ impl fmt::Debug for Error {
     }
 }
 pub type Result<T, E = Error> = core::result::Result<T, E>;
-pub trait Context<T> {
+pub trait Context<T, E: StdError> {
     fn context(self, context: &str) -> Result<T>;
+}
+impl<T, E: StdError> Context<T, E> for core::result::Result<T, E> {
+    fn context(self, context: &str) -> Result<T> {
+        self.map_err(|e| {
+            let mut error = Error::from(e);
+            error.context = Some(context.to_string());
+            error
+        })
+    }
 }
