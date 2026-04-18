@@ -20,6 +20,15 @@ pub struct Error {
     context: Option<String>,
     hint: Option<String>
 }
+impl Error {
+    pub fn new(msg: &str) -> Self {
+        Error {
+            msg: msg.to_string(),
+            context: None,
+            hint: None
+        }
+    }
+}
 impl<E: StdError> From<E> for Error {
     fn from(value: E) -> Self {
         Self {
@@ -62,4 +71,11 @@ impl<T, E: StdError> Context<T, E> for core::result::Result<T, E> {
             error
         })
     }
+}
+#[macro_export]
+macro_rules! bail {
+    ($($arg:tt)*) => {
+        extern crate alloc;
+        return Err($crate::Error::new(&alloc::format!($($arg)*)));
+    };
 }
