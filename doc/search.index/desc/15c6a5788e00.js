@@ -1,0 +1,1 @@
+rd_("AjContains the success valueAhContains the error valueBiidc: A simple crate for error propagationAoReturns the argument unchanged.BaCalls <code>U::from(self)</code>.")

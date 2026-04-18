@@ -1,5 +1,5 @@
 (function() {
-    const implementors = Object.fromEntries([["lib",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.95.0/core/marker/trait.UnsafeUnpin.html\" title=\"trait core::marker::UnsafeUnpin\">UnsafeUnpin</a> for <a class=\"struct\" href=\"lib/struct.Error.html\" title=\"struct lib::Error\">Error</a>",0,1,["lib::Error"]]]]]);
+    const implementors = Object.fromEntries([["idc",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.95.0/core/marker/trait.UnsafeUnpin.html\" title=\"trait core::marker::UnsafeUnpin\">UnsafeUnpin</a> for <a class=\"struct\" href=\"idc/struct.Error.html\" title=\"struct idc::Error\">Error</a>",0,1,["idc::Error"]]]]]);
     if (window.register_implementors) {
         window.register_implementors(implementors);
     } else {

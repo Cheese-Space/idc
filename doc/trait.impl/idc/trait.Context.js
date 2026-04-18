@@ -1,5 +1,5 @@
 (function() {
-    const implementors = Object.fromEntries([["lib",[]]]);
+    const implementors = Object.fromEntries([["idc",[]]]);
     if (window.register_implementors) {
         window.register_implementors(implementors);
     } else {
