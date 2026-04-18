@@ -17,20 +17,27 @@ use std::error::Error as StdError;
 use core::fmt;
 pub struct Error {
     msg: String,
-    context: Option<String>
+    context: Option<String>,
+    hint: Option<String>
 }
 impl<E: StdError> From<E> for Error {
     fn from(value: E) -> Self {
         Self {
             msg: value.to_string(),
-            context: None
+            context: None,
+            hint: None
         }
     }
 }
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if let Some(context) = &self.context {
-            write!(f, "{context}\n\nCaused by:\n\t{}", self.msg)
+            if let Some(hint) = &self.hint {
+                write!(f, "{context}\n\nCaused by:\n\t{}\n\nHint: {hint}", self.msg)
+            }
+            else {
+                write!(f, "{context}\n\nCaused by:\n\t{}", self.msg)
+            }
         }
         else {
             write!(f, "{}", self.msg)
@@ -44,13 +51,14 @@ impl fmt::Debug for Error {
 }
 pub type Result<T, E = Error> = core::result::Result<T, E>;
 pub trait Context<T, E: StdError> {
-    fn context(self, context: &str) -> Result<T>;
+    fn context(self, context: &str, hint: Option<&str>) -> Result<T>;
 }
 impl<T, E: StdError> Context<T, E> for core::result::Result<T, E> {
-    fn context(self, context: &str) -> Result<T> {
+    fn context(self, context: &str, hint: Option<&str>) -> Result<T> {
         self.map_err(|e| {
             let mut error = Error::from(e);
             error.context = Some(context.to_string());
+            error.hint = hint.map(|hint| hint.to_string());
             error
         })
     }
