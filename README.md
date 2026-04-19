@@ -5,7 +5,7 @@ Idc also supports no_std with the same functionality, but you have to provide a 
 ## examples:  
 1. propagating multiple different errors:  
   
-```
+```rust
 use std::fs;
 use idc::*;
 use serde_json::Value;
@@ -21,7 +21,7 @@ fn main() -> Result<()> {
   
 2. returning an one-time error:  
   
-```
+```rust
 use std::env;
 use idc::*;
 
