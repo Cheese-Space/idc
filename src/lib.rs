@@ -11,8 +11,8 @@
 //!use serde_json::Value;
 //!
 //!fn main() -> Result<()> {
-//!    let foo = fs::read_to_string("foo.json").context("failed to read foo.", Some("maybe it doesn't exist?"))?;
-//!    let json: Value = serde_json::from_str(&foo).context("failed to turn foo into json.", Some("make sure foo.json is valid json."))?;
+//!    let foo = fs::read_to_string("foo.json").context("failed to read foo.", "maybe it doesn't exist?".into())?;
+//!    let json: Value = serde_json::from_str(&foo).context("failed to turn foo into json.", "make sure foo.json is valid json.".into())?;
 //!    println!("{}", json["important item"]);
 //!    Ok(())
 //!}
@@ -123,7 +123,7 @@ pub type Result<T, E = Error> = core::result::Result<T, E>;
 ///use idc::*;  
 ///use std::fs;  
 ///fn main() -> Result<()> {  
-///    let foo = fs::read_to_string("foo").context("failed to read foo.", Some("maybe it doesn't exist?"))?;  
+///    let foo = fs::read_to_string("foo").context("failed to read foo.", "maybe it doesn't exist?".into())?;  
 ///    println!("{}", foo);  
 ///    Ok(())  
 ///}

@@ -11,8 +11,8 @@ Idc also supports no_std with the same functionality, but you have to provide a 
 <span class="kw">use </span>serde_json::Value;
 
 <span class="kw">fn </span>main() -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-    <span class="kw">let </span>foo = fs::read_to_string(<span class="string">"foo.json"</span>).context(<span class="string">"failed to read foo."</span>, <span class="prelude-val">Some</span>(<span class="string">"maybe it doesn't exist?"</span>))<span class="question-mark">?</span>;
-    <span class="kw">let </span>json: Value = serde_json::from_str(<span class="kw-2">&amp;</span>foo).context(<span class="string">"failed to turn foo into json."</span>, <span class="prelude-val">Some</span>(<span class="string">"make sure foo.json is valid json."</span>))<span class="question-mark">?</span>;
+    <span class="kw">let </span>foo = fs::read_to_string(<span class="string">"foo.json"</span>).context(<span class="string">"failed to read foo."</span>, <span class="string">"maybe it doesn't exist?"</span>.into())<span class="question-mark">?</span>;
+    <span class="kw">let </span>json: Value = serde_json::from_str(<span class="kw-2">&amp;</span>foo).context(<span class="string">"failed to turn foo into json."</span>, <span class="string">"make sure foo.json is valid json."</span>.into())<span class="question-mark">?</span>;
     <span class="macro">println!</span>(<span class="string">"{}"</span>, json[<span class="string">"important item"</span>]);
     <span class="prelude-val">Ok</span>(())
 }
