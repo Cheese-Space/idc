@@ -11,8 +11,8 @@ use idc::*;
 use serde_json::Value;
 
 fn main() -> Result<()> {
-    let foo = fs::read_to_string("foo.json").context("failed to read foo.", Some("maybe it doesn't exist?"))?;
-    let json: Value = serde_json::from_str(&foo).context("failed to turn foo into json", Some("make sure foo.json is valid json."))?;
+    let foo = fs::read_to_string("foo.json").context("failed to read foo.", "maybe it doesn't exist?".into())?;
+    let json: Value = serde_json::from_str(&foo).context("failed to turn foo into json", "make sure foo.json is valid json.".into())?;
     println!("{}", json["important item"]);
     Ok(())
 }
@@ -26,7 +26,7 @@ use std::env;
 use idc::*;
 
 fn main() -> Result<()> {
-    let args: Vec<String> = env::Args.collect();
+    let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         bail!("no argument provided!");
     }
